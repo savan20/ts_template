@@ -1,5 +1,5 @@
 name: Push Docker Image
-"on":
+on:
   push:
     branches:
       - master
@@ -19,5 +19,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
+          context: .
           push: true
           tags: "${{ secrets.DOCKER_USERNAME }}/simplewhale:latest"

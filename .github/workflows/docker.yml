@@ -20,7 +20,10 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
+          builder: ${{ steps.buildx.outputs.name }}
           file: ./Dockerfile
           push: true
           tags: "${{ secrets.DOCKER_USERNAME }}/ts_template:latest"
           platforms: linux/amd64
+          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/ts_template:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/ts_template:buildcache,mode=max
